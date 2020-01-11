@@ -28,6 +28,10 @@ typedef enum {
 	EVM_OP_XOR,
 	EVM_OP_NOT,
 	EVM_OP_BYTE,
+	EVM_OP_SHL,
+	EVM_OP_SHR,
+	EVM_OP_SAR,
+
 	EVM_OP_SHA3 = 0x20,
 
 	EVM_OP_ADDRESS = 0x30,
