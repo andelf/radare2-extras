@@ -18,3 +18,8 @@
 *.un~
 /Makefile
 /options.mk
+
+# misc
+tags
+
+node_modules

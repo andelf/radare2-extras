@@ -74,13 +74,13 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 		if (!(head_sect = R_NEW0 (RBinSection))) {
 			return false;
 		}
-		strcpy (head_sect->name, "Header");
+		head_sect->name = strdup ("Header");
 		head_sect->paddr = 0;
 		head_sect->vaddr = 0;
 		ut8 start = 0x8; // signature + version + size
 		head_sect->size = start;
 		head_sect->vsize = start; 
-		head_sect->srwx = R_BIN_SCN_READABLE;
+		head_sect->perm = R_PERM_R;
 		r_list_append (list, head_sect);
 
 		/* ZlibData section */
@@ -89,12 +89,12 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 		if (!(data = R_NEW0 (RBinSection)))
 			return false;
 
-		snprintf(data->name, R_BIN_SIZEOF_STRINGS, "ZlibData");
+		data->name = strdup ("ZlibData");
 		data->paddr = start;
 		data->vaddr = start;
 		data->size = r_buf_size(arch->buf) - start;
 		data->vsize = r_buf_size(arch->buf) - start;
-		data->srwx = R_BIN_SCN_READABLE;
+		data->perm = R_PERM_R;
 
 		r_list_append (list, data);
 	} else if (header.signature[0] == ISWF_MAGIC_0_2) {
@@ -107,13 +107,13 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 		if (!(head_sect = R_NEW0 (RBinSection))) {
 			return false;
 		}
-		strcpy (head_sect->name, "Header");
+		head_sect->name = strdup ("Header");
 		head_sect->paddr = 0;
 		head_sect->vaddr = 0;
 		ut8 start = 0x8; // signature + version + size
 		head_sect->size = start;
 		head_sect->vsize = start; 
-		head_sect->srwx = R_BIN_SCN_READABLE;
+		head_sect->perm = R_PERM_R;
 		r_list_append (list, head_sect);
 
 		/* LzmaData section */
@@ -121,12 +121,12 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 		if (!data) {
 			return false;
 		}
-		snprintf(data->name, R_BIN_SIZEOF_STRINGS, "LzmaData");
+		data->name = strdup ("LzmaData");
 		data->paddr = start;
 		data->vaddr = start;
 		data->size = r_buf_size(arch->buf) - start;
 		data->vsize = r_buf_size(arch->buf) - start;
-		data->srwx = R_BIN_SCN_READABLE;
+		data->perm = R_PERM_R;
 
 		r_list_append (list, data);
 	} else {
@@ -135,13 +135,13 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 		if (!(head_sect = R_NEW0 (RBinSection))) {
 			return false;
 		}
-		strcpy(head_sect->name, "Header");
+		head_sect->name = strdup ("Header");
 		head_sect->paddr = 0;
 		head_sect->vaddr = 0;
 		ut32 start = header.rect_size + SWF_HDR_MIN_SIZE; // rect + min_size
 		head_sect->size = start;
 		head_sect->vsize = start; 
-		head_sect->srwx = R_BIN_SCN_READABLE;
+		head_sect->perm = R_PERM_R;
 		r_list_append (list, head_sect);
 
 		/* Other sections */
@@ -173,7 +173,7 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 				return false;
 			}
 			swf_tag_t tag = r_asm_swf_gettag (tagCode);
-			strcpy (new->name, tag.name);
+			new->name = strdup (tag.name);
 			new->paddr = start;
 			new->vaddr = start;
 
@@ -183,11 +183,11 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 			switch (tagCode) {
 			case TAG_DOACTION:
 			case TAG_DOINITACTION:
-				new->srwx = R_BIN_SCN_READABLE | R_BIN_SCN_EXECUTABLE;
+				new->perm = R_PERM_RX;
 				new->has_strings = true;
 				break;
 			default:
-				new->srwx = R_BIN_SCN_READABLE;
+				new->perm = R_PERM_R;
 				break;
 			}
 			r_list_append (list, new);
@@ -196,7 +196,6 @@ int r_bin_swf_get_sections(RList *list, RBinFile *arch) {
 			r_buf_read_at (arch->buf, end, (ut8*)&tagCodeAndLength, 2);
 			section++;
 		}
-
 	}
 
 	return true;

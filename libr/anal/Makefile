@@ -1,3 +1,6 @@
+ba2:
+	cd p ; $(MAKE) anal_ba2.$(LIBEXT)
+
 bea:
 	cd p ; $(MAKE) anal_x86_bea.$(LIBEXT)
 
@@ -13,9 +16,14 @@ atombios:
 evm:
 	cd p ; $(MAKE) anal_evm.$(LIBEXT)
 
+nios:
+	cd p ; $(MAKE) anal_nios.$(LIBEXT)
+
 clean:
+	rm -f p/anal_ba2.$(LIBEXT)
 	rm -f p/anal_x86_bea.$(LIBEXT)
 	rm -f p/anal_m68k_net.$(LIBEXT)
 	rm -f p/anal_atombios.{$(LIBEXT),o}
+	rm -f p/anal_nios.$(LIBEXT)
 
 include ../../options.mk

@@ -1,5 +1,8 @@
-radare2-extras [![Build Status](https://travis-ci.org/radareorg/radare2-extras.svg?branch=master)](https://travis-ci.org/radareorg/radare2-extras)
+radare2-extras
 ==============
+
+[![GithubCI Status](https://github.com/radareorg/radare2-extras/workflows/CI/badge.svg?branch=master)](https://github.com/radareorg/radare2-extras/actions?query=workflow%3A%22ci%22)|
+
 This repository contains extra plugins for radare2.
 
 The reasons why those plugins are distributed in a separate

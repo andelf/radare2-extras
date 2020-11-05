@@ -49,12 +49,15 @@ const EvmOpDef opcodes[256] = {
 	[EVM_OP_EXTCODECOPY] = { "extcodecopy", 1 },
 	[EVM_OP_RETURNDATASIZE] = { "returndatasize", 1},
 	[EVM_OP_RETURNDATACOPY] = { "returndatacopy", 1},
+	[EVM_OP_EXTCODEHASH] = { "extcodehash", 1},
 	[EVM_OP_BLOCKHASH] = { "blockhash", 1 },
 	[EVM_OP_COINBASE] = { "coinbase", 1 },
 	[EVM_OP_TIMESTAMP] = { "timestamp", 1 },
 	[EVM_OP_NUMBER] = { "number", 1 },
 	[EVM_OP_DIFFICULTY] = { "difficulty", 1 },
 	[EVM_OP_GASLIMIT] = { "gaslimit", 1 },
+	[EVM_OP_CHAINID] = { "chainid", 1 },
+	[EVM_OP_SELFBALANCE] = { "selfbalance", 1 },
 	[EVM_OP_POP] = { "pop", 1 },
 	[EVM_OP_MLOAD] = { "mload", 1 },
 	[EVM_OP_MSTORE] = { "mstore", 1 },
@@ -73,8 +76,10 @@ const EvmOpDef opcodes[256] = {
 	[EVM_OP_CALLCODE] = { "callcode", 1 },
 	[EVM_OP_RETURN] = { "return", 1 },
 	[EVM_OP_DELEGATECALL] = { "delegatecall", 1 },
+	[EVM_OP_CREATE2] = { "create2", 1 },
 	[EVM_OP_STATICCALL] = { "staticcall", 1 },
 	[EVM_OP_REVERT] = { "revert", 1 },
+	[EVM_OP_INVALID] = { "invalid", 1 },
 	[EVM_OP_SELFDESTRUCT] = { "selfdestruct", 1 },
 };
 
@@ -217,7 +222,7 @@ int evm_dis(EvmOp *op, const unsigned char *buf, int buf_len) {
 	}
 	break;
 	default:
-		settxtf (op, "invalid");
+		settxtf (op, "unassigned");
 		op->len = 0;
 		break;
 	}

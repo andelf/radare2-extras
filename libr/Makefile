@@ -9,6 +9,10 @@ atombios:
 	$(MAKE) -C anal atombios
 	$(MAKE) -C bin atombios
 
+ba2:
+	$(MAKE) -C asm ba2	
+	$(MAKE) -C anal ba2
+
 blackfin:
 	$(MAKE) -C asm blackfin
 
@@ -37,6 +41,7 @@ evm:
 
 nios:
 	$(MAKE) -C asm nios
+	$(MAKE) -C anal nios
 
 clean:
 	$(MAKE) -C asm clean
@@ -46,6 +51,10 @@ atombios-install:
 	cp -f asm/p/asm_atombios.$(LIBEXT) $(R2PM_PLUGDIR)
 	cp -f anal/p/anal_atombios.$(LIBEXT) $(R2PM_PLUGDIR)
 	cp -f bin/p/bin_atombios.$(LIBEXT) $(R2PM_PLUGDIR)
+
+ba2-install:
+	cp -f asm/p/asm_ba2.$(LIBEXT) $(R2PM_PLUGDIR)
+	cp -f anal/p/anal_ba2.$(LIBEXT) $(R2PM_PLUGDIR)
 
 bea-install:
 	cp -f asm/p/asm_x86_bea.$(LIBEXT) $(R2PM_PLUGDIR)
@@ -76,5 +85,6 @@ evm-install:
 
 nios-install:
 	cp -f asm/p/asm_nios.$(LIBEXT) $(R2PM_PLUGDIR)
+	cp -f anal/p/anal_nios.$(LIBEXT) $(R2PM_PLUGDIR)
 
 include ../options.mk
