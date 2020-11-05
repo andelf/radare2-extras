@@ -71,6 +71,11 @@ const EvmOpDef opcodes[256] = {
 	[EVM_OP_GAS] = { "gas", 1 },
 	[EVM_OP_JUMPDEST] = { "jumpdest", 1 },
 	// ....
+	[EVM_OP_CALLTOKEN] = { "calltoken", 1 },
+	[EVM_OP_TOKENBALANCE] = { "tokenbalance", 1 },
+	[EVM_OP_CALLTOKENVALUE] = { "calltokenvalue", 1 },
+	[EVM_OP_CALLTOKENID] = { "calltokenid", 1 },
+	[EVM_OP_ISCONTRACT] = { "iscontract", 1 },
 	[EVM_OP_CREATE] = { "create", 1 },
 	[EVM_OP_CALL] = { "call", 1 },
 	[EVM_OP_CALLCODE] = { "callcode", 1 },
